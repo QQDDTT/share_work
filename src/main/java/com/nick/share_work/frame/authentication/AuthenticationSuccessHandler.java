@@ -51,7 +51,7 @@ public class AuthenticationSuccessHandler implements ServerAuthenticationSuccess
 
             // 将生成的JWT令牌放入HTTP响应的Cookie中
             exchange.getResponse().getCookies().add("AUTH-TOKEN", ResponseCookie.from("AUTH-TOKEN", token)
-                    .httpOnly(false)  // 设置Cookie为HttpOnly，防止客户端脚本访问
+                    .httpOnly(true)  // 设置Cookie为HttpOnly，防止客户端脚本访问
                     .path("/")        // 设置Cookie的路径为根路径
                     .build());
 

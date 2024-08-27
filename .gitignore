@@ -6,7 +6,7 @@ target/
 
 ### WorkSpace ###
 src/main/workSpace/**
-!src/main/workspace
+!src/main/workSpace
 
 ### Secured ###
 src/main/resources/secured/**

@@ -132,7 +132,7 @@ public class AuthenticationService {
         // 生成随机 ID
         String id = UUID.randomUUID().toString(); // 生成随机 ID
         String encodedPassword = passwordEncoder.encode(password); // 加密密码
-        User user = new User(id, username, encodedPassword, email, List.of(Authority.ADMIN)); // 创建用户对象
+        User user = new User(id, username, encodedPassword, email, List.of(Authority.USER)); // 创建用户对象
         userMap.put(id, user);
         try {
             saveUsersToFile();
