@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>HOME</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/static/js/Common.js" ></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h2>Home Page</h2>
+      </header>
+      <main class="button-container">
+        <button onclick="action(ECHO_URL)">CHAT</button>
+        <button onclick="action(FILES_URL)">FILES</button>
+        <button onclick="action(EDITOR_URL)">EDITOR</button>
+        <button onclick="action(DEMO_URL)">DEMO</button>
+        <button onclick="action('/public/status')">STATUS</button>
+      </main>
+      <footer>
+        <p>&copy; 2021 <NAME><a onclick="logout()" target="_blank">Logout</a></p>
+      </footer>
+    </div>
+  </body>
+  <script type="text/javascript"> 
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+      action(USER_LOGOUT_URL)
+      }
+    }
+  </script>
+</html>

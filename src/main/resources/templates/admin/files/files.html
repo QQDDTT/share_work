@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/static/js/Common.js" ></script>
+    <script src="/static/js/filesWebSocket.js" ></script>
+    <title>files Test</title>
+    <link rel="stylesheet" href="/static/css/files.css"/>
+  </head>
+  <body>
+    <h2>FILES</h2>
+    <div class="status header">
+        <button onclick="action(HOME_URL)">HOME</button>
+    </div>
+    <div class="status connection">
+        <button onclick="filesWS.disconnect()">CLOSE</button>
+        <button onclick="filesWS.connect()">CONNECT</button>
+        <span>STATUS:</span>
+        <div id="status"></div>
+    </div>
+    <div class="status search">
+        <span>Search:</span>
+        <input id="cond" value=".html"/>
+        <button onclick="searchFiles()">SEARCH</button>
+    </div>
+    <div class="status path">
+        <span>Path:</span>
+        <input id="path" value="."/>
+        <button onclick="eachFiles()">EACH</button>
+        <button onclick="createFile()">CREATE</button>
+        <button onclick="deleteFile()">DELETE</button>
+    </div>
+    <br/>
+    <div class="status file">
+        <span>Files</span>
+        <select id="files_list"></select>
+        <input id="file_name"/>
+        <button onclick="openFile()">OPEN</button>
+        <button onclick="saveFile()">SAVE</button>
+    </div>
+    <div id="file_window">
+        <textarea id="text" aria-multiline="true" style="width: 1200px; height: 600px;"></textarea>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const STATUS = document.getElementById("status");
+    const FILES_LIST = document.getElementById("files_list");
+    const COND = document.getElementById("cond");
+    const PATH = document.getElementById("path");
+    const FILE_NAME = document.getElementById("file_name");
+    const TEXT = document.getElementById("text");
+
+    var filesWS = new FilesWS(function (msg) {
+        STATUS.innerText = msg;
+    });
+
+    function searchFiles() {
+        var value = {
+            cond: COND.value,
+            path: PATH.value,
+            value: "",
+            line: ""
+        };
+        filesWS.send(PATH_SEARCH, value, function (data) {
+            FILES_LIST.innerHTML = ""; // 清空现有的文件列表
+
+            // 遍历 data 对象并创建新的选项
+            Object.keys(data).forEach(function(f) {
+                var option = document.createElement("option");
+                option.text = f; // 文件名作为选项的显示文本
+                option.value = data[f]; // 文件路径作为选项的值
+                FILES_LIST.appendChild(option);
+            });
+
+            // 如果文件列表有项，则将 FILE_NAME 更新为第一个选项的值
+            if (FILES_LIST.options.length > 0) {
+                FILE_NAME.value = FILES_LIST.options[0].value;
+            } else {
+                FILE_NAME.value = ""; // 如果文件列表为空，则清空 FILE_NAME
+            }
+        });
+    }
+
+    function eachFiles() {
+        var value = {
+            cond: COND.value,
+            path: PATH.value,
+            value: "",
+            line: ""
+        };
+        filesWS.send(PATH_EACH, value, function (data) {
+            FILES_LIST.innerHTML = "";
+            Object.keys(data).forEach(function(f) {
+                var option = document.createElement("option");
+                option.text = f;
+                option.value = data[f];
+                FILES_LIST.appendChild(option);
+            });
+
+            // 更新 FILE_NAME 为第一个选项的值，如果有文件列表项的话
+            if (FILES_LIST.options.length > 0) {
+                FILE_NAME.value = FILES_LIST.options[0].value;
+            } else {
+                FILE_NAME.value = ""; // 如果文件列表为空，则清空 FILE_NAME
+            }
+        });
+    }
+
+    function updateFileList(data) {
+        FILES_LIST.innerHTML = "";
+        Object.keys(data).forEach(function(f) {
+            var option = document.createElement("option");
+            option.text = f;
+            option.value = data[f];
+            FILES_LIST.appendChild(option);
+        });
+
+        // 更新 FILE_NAME 为第一个选项的值，如果有文件列表项的话
+        if (FILES_LIST.options.length > 0) {
+            FILE_NAME.value = FILES_LIST.options[0].value;
+        } else {
+            FILE_NAME.value = ""; // 如果文件列表为空，则清空 FILE_NAME
+        }
+    }
+
+    function createFile() {
+        var value = {
+            cond: "",
+            path: PATH.value,
+            value: FILE_NAME.value,
+            line: ""
+        };
+        filesWS.send(PATH_CREATE, value, function (data) {
+            updateFileList(data);
+        });
+    }
+
+    function deleteFile() {
+        var value = {
+            cond: "",
+            path: PATH.value,
+            value: FILE_NAME.value,
+            line: ""
+        };
+        filesWS.send(PATH_DELETE, value, function (data) {
+            updateFileList(data);
+        });
+    }
+
+    function openFile() {
+        console.log("open " + FILE_NAME.value);
+        var value = {
+            cond: "",
+            path: FILE_NAME.value,
+            value: "",
+            line: ""
+        };
+        filesWS.send(FILE_OPEN, value, function (data) {
+            var text = "";
+            if (data && typeof data === 'object') {
+                Object.keys(data).forEach(function(line) {
+                    text += data[line] + "\n";
+                });
+            }
+            TEXT.value = text;
+        });
+    }
+
+    function saveFile() {
+        var value = {
+            cond: "",
+            path: FILE_NAME.value,
+            value: TEXT.value,
+            line: ""
+        };
+        filesWS.send(FILE_SAVE, value, function (data) {
+            // 这里可以添加保存成功后的处理逻辑，例如显示提示信息
+            console.log("File saved successfully");
+        });
+    }
+
+    FILES_LIST.onchange = function() {
+        FILE_NAME.value = FILES_LIST.value;
+    }
+  </script>
+</html>

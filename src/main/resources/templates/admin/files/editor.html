@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/static/js/Common.js" ></script>
+    <script src="/static/js/filesWebSocket.js" ></script>
+    <script src="/static/js/editorjs.umd.js"></script>
+    <title>editor Test</title>
+    <link rel="stylesheet" href="/static/css/editor.css"/>
+  </head>
+  <body>
+    <h2>EDITOR</h2>
+    <button onclick="action(HOME_URL)">HOME</button>
+    <code id="editorjs"></code>
+  </body>
+  <script type="text/javascript">
+    const editor = new EditorJS({
+      autofocus: true,
+      tools: {
+        image: SimpleImage
+      }
+    });
+  </script>
+</html>

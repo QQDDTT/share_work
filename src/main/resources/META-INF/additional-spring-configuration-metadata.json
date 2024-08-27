@@ -1,0 +1,127 @@
+{"properties": [
+  {
+    "name": "ssl.key-store.type",
+    "type": "java.lang.String",
+    "description": "A description for 'ssl.key-store.type'"
+  },
+  {
+    "name": "ssl.key-store.password",
+    "type": "java.lang.String",
+    "description": "A description for 'ssl.key-store.password'"
+  },
+  {
+    "name": "ssl.key-store.path",
+    "type": "java.lang.String",
+    "description": "A description for 'ssl.key-store.path'"
+  },
+  {
+    "name": "files.websocket.connection.url",
+    "type": "java.lang.String",
+    "description": "A description for 'files.websocket.connection.url'"
+  },
+  {
+    "name": "files.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'files.page.url'"
+  },
+  {
+    "name": "echo.websocket.connection.url",
+    "type": "java.lang.String",
+    "description": "A description for 'echo.websocket.connection.url'"
+  },
+  {
+    "name": "echo.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'echo.page.url'"
+  },
+  {
+    "name": "user.data.file.path",
+    "type": "java.lang.String",
+    "description": "A description for 'user.data.file.path'"
+  },
+  {
+    "name": "favicon.url",
+    "type": "java.lang.String",
+    "description": "A description for 'favicon.url'"
+  },
+  {
+    "name": "index.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'index.page.url'"
+  },
+  {
+    "name": "login.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'login.page.url'"
+  },
+  {
+    "name": "public.url",
+    "type": "java.lang.String",
+    "description": "A description for 'public.url'"
+  },
+  {
+    "name": "static.url",
+    "type": "java.lang.String",
+    "description": "A description for 'static.url'"
+  },
+  {
+    "name": "admin.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'admin.page.url'"
+  },
+  {
+    "name": "user.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'user.page.url'"
+  },
+  {
+    "name": "files.base.path",
+    "type": "java.lang.String",
+    "description": "A description for 'files.base.path'"
+  },
+  {
+    "name": "register.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'register.page.url'"
+  },
+  {
+    "name": "delete.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'delete.page.url'"
+  },
+  {
+    "name": "update.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'update.page.url'"
+  },
+  {
+    "name": "logout.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'logout.page.url'"
+  },
+  {
+    "name": "login.success.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'login.success.page.url'"
+  },
+  {
+    "name": "favicon.path",
+    "type": "java.lang.String",
+    "description": "A description for 'favicon.path'"
+  },
+  {
+    "name": "error.page.url",
+    "type": "java.lang.String",
+    "description": "A description for 'error.page.url'"
+  },
+  {
+    "name": "ajax.connoction.url",
+    "type": "java.lang.String",
+    "description": "A description for 'ajax.connoction.url'"
+  },
+  {
+    "name": "ajax.connoction.url",
+    "type": "java.lang.String",
+    "description": "A description for 'ajax.connoction.url'"
+  }
+]}

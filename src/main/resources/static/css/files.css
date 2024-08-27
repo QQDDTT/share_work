@@ -1,0 +1,151 @@
+/* 基本样式，适用于电脑和较大屏幕设备 */
+body {
+    overflow: hidden; /* 隐藏滚动条 */
+}
+h2 {
+    font-size: 30px; /* 标题字体大小适应大屏 */
+}
+.status {
+    margin-bottom: 50px; /* 增加底部边距，与下方元素分隔 */
+    width: 100%; /* 宽度适应80%的屏幕宽度 */
+    position: absolute; /* 固定定位，不随页面滚动 */
+    display: flex; /* 采用flex布局 */
+    z-index: 9999; /* 置顶 */
+    gap: 20px; /* 元素间距适应大屏 */
+    margin-top: 10px; /* 标题距离顶部10px */
+    margin-left: 10px; /* 标题距离左侧10px */
+    vertical-align: bottom; /* 垂直对齐底部 */
+}
+.status.header {
+    top: 60px; /* 标题距离顶部0px */
+    left: 0; /* 标题距离左侧0px */
+}
+.status.connection {
+    top: 100px; /* 第一行元素距离顶部10% */
+    left: 0; /* 第一行元素距离左侧0px */
+}
+.status.search {
+    top: 140px; /* 第二行元素距离顶部20% */
+    left: 0; /* 第二行元素距离左侧0px */
+}
+.status.path {
+    top: 180px; /* 第三行元素距离顶部30% */
+    left: 0; /* 第三行元素距离左侧0px */
+}
+.status.file {
+    top: 220px; /* 第四行元素距离顶部40% */
+    left: 0; /* 第四行元素距离左侧0px */
+}
+
+.status button {
+    width: 200px; /* 按钮宽度适应父元素 */
+    height: 30px; /* 按钮高度适应父元素 */
+}
+.status span {
+    width: 100px; /* 标题宽度适应父元素 */
+    height: 30px; /* 标题高度适应父元素 */
+    font-size: 16px; /* 标题字体大小适应大屏 */
+}
+.status input {
+    width: 200px;
+    height: 30px; /* 标题高度适应父元素 */
+}
+.status select {
+    width: 300px; 
+    height: 30px; /* 标题高度适应父元素 */
+}
+#file_window {
+    position : absolute; /* 绝对定位，不随页面滚动 */
+    top : 260px;
+    left : 0;
+    width: 90%; /* 文件窗口在大屏设备上占据90%的宽度 */
+    height: 500px;
+}
+#file_window textarea {
+    width: 100% !important; /* 文件窗口文本框宽度适应父元素 */
+    height: 100% !important; /* 文件窗口文本框高度适应父元素 */
+    padding: 20px; /* 文件窗口文本框内边距适应大屏 */
+    border: 1px solid #000000; /* 文件窗口文本框边框 */
+    border-radius: 8px; /* 文件窗口文本框圆角 */
+    margin: 20px; /* 文件窗口文本框外边距适应大屏 */
+}
+
+/* 手机样式，适用于屏幕宽度小于768px的设备 */
+@media screen and (max-width: 768px) {
+    body {
+        overflow: hidden; /* 隐藏滚动条 */
+    }
+    h2 {
+        font-size: 30px; /* 标题字体大小适应大屏 */
+    }
+    .status {
+        margin-bottom: 20px; /* 增加底部边距，与下方元素分隔 */
+        width: 100%; /* 宽度适应整个屏幕 */
+        position: fixed; /* 固定定位，不随页面滚动 */
+        display: flex; /* 采用flex布局 */
+        z-index: 9999; /* 置顶 */
+        gap: 10px; /* 元素间距适应小屏 */
+        height: 4%; /* 标题高度适应小屏 */
+    }
+    .status h2 {
+        font-size: large; /* 标题字体大小适应小屏 */
+    }
+    .status.header {
+        top: 6%; /* 标题距离顶部0px */
+        left: 0; /* 标题距离左侧0px */
+    }
+    .status.connection {
+        top: 9%; /* 第一行元素距离顶部0px */
+        left: 0; /* 第一行元素距离左侧0px */
+    }
+    .status.search {
+        top: 12%; /* 第二行元素距离顶部20% */
+        left: 0; /* 第二行元素距离左侧0px */
+    }
+    .status.path {
+        top: 15%; /* 第三行元素距离顶部100% */
+        left: 0; /* 第三行元素距离左侧0px */
+    }
+    .status.file {
+        top: 18%; /* 第四行元素距离顶部100% */
+        left: 0; /* 第四行元素距离左侧0px */
+    }
+    .status button {
+        width: 12%; /* 按钮宽度适应父元素 */
+        height: 60%; /* 按钮高度适应父元素 */
+    }
+    .status span {
+        width: 8%; /* 标题宽度适应父元素 */
+    }
+    .status input {
+        width: 18%; /* 输入框宽度适应父元素 */
+        height: 10% !important; /* 输入框高度适应父元素 */
+        padding: 10px; /* 输入框内边距适应小屏 */
+    }
+    .status select {
+        width: 25%; /* 选择框在小屏设备上占据50%的宽度 */
+    }
+    #file_window {
+        position : absolute; /* 绝对定位，不随页面滚动 */
+        top : 21%; /* 距离顶部50% */
+        left : 0; /* 距离左侧50% */
+        width: 100%; /* 文件窗口在小屏设备上占据100%的宽度 */
+        height: 85%; /* 文件窗口高度适应小屏 */
+    }
+    #file_window textarea {
+        width: 100% !important; /* 文件窗口文本框宽度适应父元素 */
+        height: 100% !important; /* 文件窗口文本框高度适应父元素 */
+        padding: 10px; /* 文件窗口文本框内边距适应小屏 */
+        border: 1px solid #000000; /* 文件窗口文本框边框 */
+        border-radius: 4px; /* 文件窗口文本框圆角 */
+        margin: 10px; /* 文件窗口文本框外边距适应小屏 */
+    }
+}
+
+
+
+
+
+
+
+

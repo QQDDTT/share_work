@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="/static/js/Common.js" ></script>
+    <script src="/static/js/echoWebSocket.js"></script>
+    <title>echo Test</title>
+  </head>
+  <body>
+    <h2>CHAT</h2>
+    <button onclick="action(HOME_URL)">HOME</button>
+    <label>STATUS:</label>
+    <div id="status"></div>
+    <br/>
+    <button onclick="chatWS.connect()">CONNECT</button>
+    <button onclick="chatWS.disconnect()">CLOSE</button>
+    <br/>
+    <label>SEND:</label>
+    <input type="text" id="send" value="PING"/>
+    <br/>
+    <label>RESULT:</label>
+    <div id="result"></div>
+    
+  </body>
+  <script type="text/javascript">
+    var chatWS = new ChatWS(
+      function(){
+        return document.getElementById("send").value;
+      },
+      function(msg){
+        document.getElementById("result").innerText = msg;
+      },
+      function (status){
+        document.getElementById("status").innerText = status;
+      }
+    );
+  </script>
+</html>
