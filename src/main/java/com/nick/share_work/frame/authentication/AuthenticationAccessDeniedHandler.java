@@ -59,12 +59,14 @@ public class AuthenticationAccessDeniedHandler implements ServerAccessDeniedHand
     // 内部类，用于提供 ServerResponse 所需的上下文
     private static class HandlerStrategiesResponseContext implements ServerResponse.Context {
 
+        @SuppressWarnings("null")
         @Override
         public List<HttpMessageWriter<?>> messageWriters() {
             // 提供消息写入器
             return HandlerStrategies.withDefaults().messageWriters();
         }
 
+        @SuppressWarnings("null")
         @Override
         public List<ViewResolver> viewResolvers() {
             // 提供视图解析器

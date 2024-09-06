@@ -30,6 +30,7 @@ public class EchoHandler implements WebSocketHandler {
      * @param session 当前的 WebSocket 会话
      * @return Mono<Void> 表示操作的完成
      */
+    @SuppressWarnings("null")
     @Override
     public Mono<Void> handle(final WebSocketSession session) {
         // 记录 WebSocket 连接建立的信息

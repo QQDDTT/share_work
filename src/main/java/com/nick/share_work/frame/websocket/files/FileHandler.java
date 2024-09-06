@@ -21,6 +21,7 @@ public class FileHandler implements WebSocketHandler {
     @Autowired
     private FilesManagementServer fms;
 
+    @SuppressWarnings("null")
     @Override
     public Mono<Void> handle(final WebSocketSession session) {
         LOGGER.info("[File Socket] Connection Established"); // 连接建立日志
