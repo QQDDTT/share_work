@@ -14,19 +14,11 @@
 	<packaging>war</packaging>
 	<name>share_work</name>
 	<description>Demo project for Spring Boot</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
+
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 
     <properties>
         <!-- Java version used in the project -->
@@ -124,6 +116,17 @@
             <artifactId>jjwt-jackson</artifactId>
             <version>0.12.5</version>
         </dependency>
+        <!-- MyBaties -->
+		<!-- <dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.9</version>
+		</dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>3.0.2</version>
+        </dependency> -->
     </dependencies>
 
     <build>

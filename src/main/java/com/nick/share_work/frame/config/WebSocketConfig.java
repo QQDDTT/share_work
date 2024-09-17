@@ -77,38 +77,4 @@ public class WebSocketConfig {
         LOGGER.debug("Configuring WebSocket handler adapter");
         return new WebSocketHandlerAdapter();
     }
-
-
-    /**
-     * 获取 SSL 上下文
-     */
-    public SslContext getSslContext() {
-        try {
-            LOGGER.debug("Configuring SSL/TLS");
-            // 加载密钥库
-            KeyStore keyStore = KeyStore.getInstance(propertiesReader.getKeyStoreType());
-            try (FileInputStream is = new FileInputStream(propertiesReader.getKeyStorepath())) {
-                keyStore.load(is, propertiesReader.getKeyStorePasswordCharArray());
-            }
-
-            // 初始化 KeyManagerFactory
-            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            keyManagerFactory.init(keyStore, propertiesReader.getKeyStorePasswordCharArray());
-
-            // 初始化 TrustManagerFactory
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init(keyStore);
-
-            // 配置 SSL 上下文
-            SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(keyManagerFactory)
-                    .trustManager(trustManagerFactory);
-
-            SslContext sslContext = sslContextBuilder.build();
-            LOGGER.debug("SSL/TLS configuration successful");
-            return sslContext;
-        } catch (Exception e) {
-            LOGGER.error("Failed to configure SSL/TLS", e);
-            return null;
-        }
-    }
 }

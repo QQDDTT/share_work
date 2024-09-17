@@ -1,0 +1,29 @@
+[2024-09-17 19:01:46.684] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStarting] [50] - Starting ShareWorkApplication using Java 17.0.12 with PID 1796 (C:\Users\hunen\source\java_projects\share_work\target\classes started by hunen in C:\Users\hunen\source\java_projects\share_work)
+[2024-09-17 19:01:46.689] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-09-17 19:01:46.763] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-09-17 19:01:46.765] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-09-17 19:01:48.676] [INFO ] [restartedMain] [o.s.b.a.logging.ConditionEvaluationReportLogger] [logMessage] [82] - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-09-17 19:02:40.918] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStarting] [50] - Starting ShareWorkApplication using Java 17.0.12 with PID 3180 (C:\Users\hunen\source\java_projects\share_work\target\classes started by hunen in C:\Users\hunen\source\java_projects\share_work)
+[2024-09-17 19:02:40.922] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-09-17 19:02:40.984] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-09-17 19:02:40.985] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-09-17 19:02:42.644] [INFO ] [restartedMain] [o.s.b.a.logging.ConditionEvaluationReportLogger] [logMessage] [82] - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-09-17 19:06:54.624] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStarting] [50] - Starting ShareWorkApplication using Java 17.0.12 with PID 9096 (C:\Users\hunen\source\java_projects\share_work\target\classes started by hunen in C:\Users\hunen\source\java_projects\share_work)
+[2024-09-17 19:06:54.630] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-09-17 19:06:54.708] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-09-17 19:06:54.709] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-09-17 19:06:56.671] [INFO ] [restartedMain] [o.s.b.a.logging.ConditionEvaluationReportLogger] [logMessage] [82] - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-09-17 19:07:44.985] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStarting] [50] - Starting ShareWorkApplication using Java 17.0.12 with PID 1288 (C:\Users\hunen\source\java_projects\share_work\target\classes started by hunen in C:\Users\hunen\source\java_projects\share_work)
+[2024-09-17 19:07:44.990] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStartupProfileInfo] [654] - No active profile set, falling back to 1 default profile: "default"
+[2024-09-17 19:07:45.087] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-09-17 19:07:45.088] [INFO ] [restartedMain] [o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor] [logTo] [252] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-09-17 19:07:47.541] [INFO ] [restartedMain] [o.s.b.actuate.endpoint.web.EndpointLinksResolver] [<init>] [60] - Exposing 1 endpoint beneath base path '/actuator'
+[2024-09-17 19:07:48.009] [INFO ] [restartedMain] [o.s.b.d.autoconfigure.OptionalLiveReloadServer] [startServer] [59] - LiveReload server is running on port 35729
+[2024-09-17 19:07:48.265] [INFO ] [restartedMain] [o.s.boot.web.embedded.netty.NettyWebServer] [start] [141] - Netty started on port 8080 (http)
+[2024-09-17 19:07:48.281] [INFO ] [restartedMain] [com.nick.share_work.ShareWorkApplication] [logStarted] [56] - Started ShareWorkApplication in 3.835 seconds (process running for 4.907)

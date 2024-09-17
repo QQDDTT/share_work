@@ -16,39 +16,6 @@ public class PropertiesReader {
     @Lazy
     private AntPathMatcher antPathMatcher;
 
-    // 配置密钥库路径和类型
-    @Value("${ssl.key-store.path}")
-    private String keyStorepath;
-    @Value("${ssl.key-store.password}")
-    private String keyStorePassword;
-    @Value("${ssl.key-store.type}")
-    private String keyStoreType;
-
-    /**
-     * 获取密钥库路径
-     * @return 密钥库路径
-     */
-    public String getKeyStorepath() {
-        return keyStorepath;
-    }
-
-    /**
-     * 获取密钥库密码
-     * @return 密钥库密码
-     */
-    public char[] getKeyStorePasswordCharArray() {
-        return keyStorePassword.toCharArray();
-    }
-
-    /**
-     * 获取密钥库类型
-     * @return 密钥库类型
-     */
-    public String getKeyStoreType() {
-        return keyStoreType;
-    }
-
-
     // 从配置文件中加载网页路径
     @Value("${index.page.url}")
     private String indexPageUrl;
