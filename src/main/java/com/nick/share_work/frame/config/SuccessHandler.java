@@ -176,7 +176,7 @@ public class SuccessHandler {
      * @return 响应
      */
     private Mono<ServerResponse> getHTML(String path) {
-        Resource resource = new ClassPathResource("/templates/" + path + ".html");
+        Resource resource = new ClassPathResource("/templates" + path + ".html");
         LOGGER.info("[GET] HTML request for path: {}", path);
         return ServerResponse
                 .ok()
