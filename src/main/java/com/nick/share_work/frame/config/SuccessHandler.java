@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.yaml.snakeyaml.scanner.Scanner;
 
 import com.nick.share_work.frame.authentication.AuthenticationConverter;
 import com.nick.share_work.frame.authentication.AuthenticationManager;
@@ -20,11 +22,10 @@ import com.nick.share_work.frame.authentication.model.User;
 
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 处理成功请求和认证成功的处理器
@@ -321,19 +322,29 @@ public class SuccessHandler {
      */
     public Mono<ServerResponse> errorPage(String message) {
         LOGGER.info("[GET] Error page request for message: {}", message);
-        return Mono.fromSupplier(() -> {
-                        try {
-                            Path errorPath = new ClassPathResource("/templates" + propertiesReader.getErrorPath() + ".html").getFile().toPath();
-                            String content = Files.readString(errorPath);
-                            content = content.replace("${message}", message);
-                            return content;
-                        } catch (IOException e) {
-                            LOGGER.error("Error reading error page: ", e);
-                            return "Error reading error page";
-                        }
-                    }).flatMap(content -> ServerResponse
-                            .status(HttpStatus.INTERNAL_SERVER_ERROR) // 500 Internal Server Error
-                            .contentType(MediaType.TEXT_HTML)
-                            .bodyValue(content)); 
+        Resource resource = new ClassPathResource("/templates" + propertiesReader.getErrorPath() + ".html");
+    
+        return Mono.fromCallable(() -> {
+            try (InputStream inputStream = resource.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                StringBuilder content = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    content.append(line).append(System.lineSeparator());
+                }
+                String pageContent = content.toString().replace("${message}", message);
+                return pageContent;
+            } catch (IOException e) {
+                LOGGER.error("Error reading error page: ", e);
+                return "Error reading error page";
+            }
+        }).flatMap(content -> ServerResponse
+                .status(HttpStatus.INTERNAL_SERVER_ERROR) // 500 Internal Server Error
+                .contentType(MediaType.TEXT_HTML)
+                .bodyValue(content))
+        .onErrorResume(e -> {
+            LOGGER.error("Error reading error page: ", e);
+            return errorPage("Error reading error page");
+        });
     }
 }
