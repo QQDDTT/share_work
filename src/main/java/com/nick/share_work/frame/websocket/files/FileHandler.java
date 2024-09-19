@@ -31,7 +31,7 @@ public class FileHandler implements WebSocketHandler {
                         .doOnNext(msg -> LOGGER.info("[Received Message]: {}", msg.getPayloadAsText())) // 记录接收到的消息
                         .map(msg -> {
                             String response = fms.getMsg(msg.getPayloadAsText()); // 获取处理后的响应消息
-                            LOGGER.debug("[Response]: {}", response.length() > 100 ? response.substring(0, 100) + "..." : response); // 记录响应消息
+                            LOGGER.debug("[Response]: {}", response.length() > 20 ? response.substring(0, 10) + "..." : response); // 记录响应消息
                             return session.textMessage(response); // 发送响应消息
                         })
         );

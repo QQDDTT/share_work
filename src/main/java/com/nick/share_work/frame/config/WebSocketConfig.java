@@ -1,12 +1,7 @@
 package com.nick.share_work.frame.config;
 
-import java.io.FileInputStream;
-import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.TrustManagerFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +17,6 @@ import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAd
 
 import com.nick.share_work.frame.websocket.echo.EchoHandler;
 import com.nick.share_work.frame.websocket.files.FileHandler;
-
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
 
 /**
  * WebSocket 配置类。

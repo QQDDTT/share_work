@@ -72,7 +72,7 @@ public class FilesManagementServer {
                     return WebSocketMessageBody.error(message, "Unkonwn message type");
             }
         } catch (Exception e) {
-            LOGGER.error("[ERROR]", e);
+            LOGGER.error("[ERROR] : {}", e);
             return "ERROR";
         }
     }

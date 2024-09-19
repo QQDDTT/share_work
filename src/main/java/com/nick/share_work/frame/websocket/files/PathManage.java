@@ -59,14 +59,14 @@ public class PathManage implements Closeable {
             // 遍历路径下的所有文件
             try {
                 String basePath = propertiesReader.getFilesBasePath();
-                LOGGER.debug("PathManage each base path: " + basePath);
+                LOGGER.debug("PathManage each base path : {}", basePath);
                 Files.walk(Paths.get(basePath))
                     .filter(Files::isRegularFile) // 仅处理文件，不处理目录
                     .forEach(p -> model.put(p.getFileName().toString(), p.toString())); // 将文件名和路径添加到模型
-                LOGGER.debug("PathManage each model: " + model);
+                LOGGER.debug("PathManage each model : {}", model);
                 return WebSocketMessageBody.success(EACH, model); // 返回成功的 JSON 响应
             } catch (IOException e) {
-                LOGGER.error("[EACH ERROR]:", e);
+                LOGGER.error("[EACH ERROR] : {}", e.getMessage());
                 return WebSocketMessageBody.error(EACH, "Each error"); // 返回错误的 JSON 响应
             }
         } finally {
@@ -91,7 +91,7 @@ public class PathManage implements Closeable {
                     .forEach(p -> model.put(p.getFileName().toString(), p.toString())); // 将文件名和路径添加到模型
                 return WebSocketMessageBody.success(SEARCH, model); // 返回成功的 JSON 响应
             } catch (IOException e) {
-                LOGGER.error("[SEARCH ERROR]:", e);
+                LOGGER.error("[SEARCH ERROR] : {}", e.getMessage());
                 return WebSocketMessageBody.error(SEARCH, "Search error"); // 返回错误的 JSON 响应
             }
         } finally {
@@ -108,7 +108,7 @@ public class PathManage implements Closeable {
     public String create(String path) {
         lock.lock(); // 获取锁以保证线程安全
         try {
-            LOGGER.debug("PathManage create path: " + path);
+            LOGGER.debug("PathManage create path : {}" + path);
             Path filePath = Paths.get(path);
             
             // 检查文件或目录是否已存在
@@ -124,7 +124,7 @@ public class PathManage implements Closeable {
                     model.put(filePath.getFileName().toString(), filePath.toString()); // 将文件名和路径添加到模型
                     return WebSocketMessageBody.success(CREATE, model); // 返回成功的 JSON 响应
                 } catch (IOException e) {
-                    LOGGER.error("[CREATE FILE ERROR]:", e);
+                    LOGGER.error("[CREATE FILE ERROR] : {}", e.getMessage());
                     return WebSocketMessageBody.error(CREATE, "Create file error"); // 返回文件创建错误的 JSON 响应
                 }
             } else {
@@ -134,7 +134,7 @@ public class PathManage implements Closeable {
                     model.put(filePath.getFileName().toString(), filePath.toString()); // 将目录名和路径添加到模型
                     return WebSocketMessageBody.success(CREATE, model); // 返回成功的 JSON 响应
                 } catch (IOException e) {
-                    LOGGER.error("[CREATE DIRECTORY ERROR]:", e);
+                    LOGGER.error("[CREATE DIRECTORY ERROR] : {}", e.getMessage());
                     return WebSocketMessageBody.error(CREATE, "Create directory error"); // 返回目录创建错误的 JSON 响应
                 }
             }
@@ -163,7 +163,7 @@ public class PathManage implements Closeable {
                     return WebSocketMessageBody.error(DELETE, "Delete error: file not exist or backup file already exist"); // 文件不存在或备份文件已存在，返回错误
                 }
             } catch (IOException e) {
-                LOGGER.error("[DELETE ERROR]:", e);
+                LOGGER.error("[DELETE ERROR] : {}", e.getMessage());
                 return WebSocketMessageBody.error(DELETE, "Delete error"); // 返回错误的 JSON 响应
             }
         } finally {
@@ -184,7 +184,7 @@ public class PathManage implements Closeable {
                 this.close(); // 清理资源
                 return WebSocketMessageBody.success(END, null); // 返回成功的 JSON 响应
             } catch (IOException e) {
-                LOGGER.error("[END ERROR]:", e);
+                LOGGER.error("[END ERROR] : {}", e.getMessage());
                 return WebSocketMessageBody.error(END, "Close error"); // 返回错误的 JSON 响应
             }
         } finally {

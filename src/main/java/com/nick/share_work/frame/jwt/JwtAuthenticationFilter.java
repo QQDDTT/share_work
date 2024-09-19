@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter implements WebFilter {
                     })
                     .onErrorResume(e -> {
                         // 错误处理：记录错误日志，并返回 401 未授权状态
-                        LOGGER.error("Authentication error", e);
+                        LOGGER.error("Authentication error : {}", e);
                         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                         return exchange.getResponse().setComplete();
                     });

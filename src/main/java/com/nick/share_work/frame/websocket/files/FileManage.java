@@ -63,7 +63,7 @@ public class FileManage implements Closeable{
             }
 
             // 记录文件打开操作
-            LOGGER.info("[OPEN] Attempting to open file at path: " + path);
+            LOGGER.info("[OPEN] Attempting to open file at path: {}", path);
 
             // 设置文件路径
             this.path = path;
@@ -76,10 +76,10 @@ public class FileManage implements Closeable{
                 while ((line = br.readLine()) != null) {
                     this.model.put(String.valueOf(lineNumber++), line);
                 }
-                LOGGER.debug("[OPEN] File content: " + this.model.size() + " lines");
+                LOGGER.debug("[OPEN] File content: {} ines", this.model.size());
                 result = WebSocketMessageBody.success(OPEN, model);
             } catch (IOException e) {
-                LOGGER.error("[OPEN ERROR] Failed to read file at path: " + path, e);
+                LOGGER.error("[OPEN ERROR] Failed to read file at path : {} ,error : {}", path, e.getMessage());
                 result = WebSocketMessageBody.error(OPEN, "Failed to read file");
             }
 
@@ -97,7 +97,7 @@ public class FileManage implements Closeable{
     public String save() {
         lock.lock(); // 获取锁以保证线程安全
         try {
-            LOGGER.info("[SAVE] Saving contents to file: " + this.path);
+            LOGGER.info("[SAVE] Saving contents to file : {}", this.path);
             String result;
             
             // 尝试将内存中的内容写入到文件
@@ -111,7 +111,7 @@ public class FileManage implements Closeable{
                 result = WebSocketMessageBody.success(SAVE, null); // 成功保存内容，返回成功的 JSON 响应
             } catch (IOException e) {
                 // 捕获并处理文件写入错误
-                LOGGER.error("[SAVE ERROR] Failed to save content to file:", e);
+                LOGGER.error("[SAVE ERROR] Failed to save content to file : {}", e.getMessage());
                 result = WebSocketMessageBody.error(SAVE, null); // 返回保存错误的 JSON 响应
             }
             
@@ -159,7 +159,7 @@ public class FileManage implements Closeable{
     public String readLine(String line) {
         lock.lock();
         try {
-            LOGGER.info("[READ_LINE] " + line);
+            LOGGER.info("[READ_LINE] {}", line);
             String text = this.model.get(line);
             if (text == null) {
                 return WebSocketMessageBody.error(READE_LINE, "Line not found");
@@ -179,7 +179,7 @@ public class FileManage implements Closeable{
     public String writeLine(String line, String text) {
         lock.lock();
         try {
-            LOGGER.info("[WRITE_LINE] " + line);
+            LOGGER.info("[WRITE_LINE] {}", line);
             this.model.put(line, text);
             return WebSocketMessageBody.success(WRITE_LINE, null);
         } finally {

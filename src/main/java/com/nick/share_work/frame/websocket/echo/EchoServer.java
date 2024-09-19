@@ -24,12 +24,12 @@ public class EchoServer {
      * @return 回显的消息
      */
     public String answer(String json) {
-        LOGGER.debug("[RECEIVED]: " + json);
+        LOGGER.debug("[RECEIVED]: {}" , json);
         // 将 JSON 字符串转换为 WebSocketMessageBody 对象
         WebSocketMessageBody webSocketMessageBody = WebSocketMessageBody.fromJson(json);
         // 从消息体中提取消息内容
         String message = "RESPONSE : " + webSocketMessageBody.getMessage();
-        LOGGER.debug("[MESSAGE]: " + message);
+        LOGGER.debug("[MESSAGE]: {}", message);
 
         // 返回成功的响应消息
         return WebSocketMessageBody.success(message, null);

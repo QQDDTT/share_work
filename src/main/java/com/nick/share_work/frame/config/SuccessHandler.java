@@ -4,16 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import org.yaml.snakeyaml.scanner.Scanner;
-
 import com.nick.share_work.frame.authentication.AuthenticationConverter;
 import com.nick.share_work.frame.authentication.AuthenticationManager;
 import com.nick.share_work.frame.authentication.AuthenticationService;
@@ -22,7 +21,10 @@ import com.nick.share_work.frame.authentication.model.User;
 
 import reactor.core.publisher.Mono;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Map;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +37,6 @@ import java.nio.charset.StandardCharsets;
  */
 @Component
 public class SuccessHandler {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SuccessHandler.class);
 
     @Autowired
@@ -112,7 +113,7 @@ public class SuccessHandler {
                 .contentType(MediaType.valueOf("image/x-icon"))
                 .bodyValue(resource)
                 .onErrorResume(e -> {
-                    LOGGER.error("Error serving favicon: ", e);
+                    LOGGER.error("Error serving favicon: {}", e);
                     return ServerResponse.notFound().build();
                 });
     }
@@ -132,7 +133,7 @@ public class SuccessHandler {
                 .contentType(getMediaType(path))
                 .bodyValue(resource)
                 .onErrorResume(e -> {
-                    LOGGER.error("Error serving static resource: ", e);
+                    LOGGER.error("Error serving static resource: {}", e);
                     return ServerResponse.notFound().build();
                 });
     }
@@ -177,14 +178,13 @@ public class SuccessHandler {
      * @return 响应
      */
     private Mono<ServerResponse> getHTML(String path) {
-        Resource resource = new ClassPathResource("/templates" + path + ".html");
         LOGGER.info("[GET] HTML request for path: {}", path);
         return ServerResponse
                 .ok()
                 .contentType(MediaType.TEXT_HTML)
-                .bodyValue(resource)
+                .bodyValue(getResource(path))
                 .onErrorResume(e -> {
-                    LOGGER.error("Error serving HTML resource: ", e);
+                    LOGGER.error("Error serving HTML resource: {}", e);
                     return ServerResponse.notFound().build();
                 });
     }
@@ -233,7 +233,7 @@ public class SuccessHandler {
                                     .build());
                 })
                 .onErrorResume(e -> {
-                    LOGGER.error("Error logging in user: ", e);
+                    LOGGER.error("Error logging in user: {}", e);
                     return errorPage("Error logging in user");
                 });
     }
@@ -322,10 +322,8 @@ public class SuccessHandler {
      */
     public Mono<ServerResponse> errorPage(String message) {
         LOGGER.info("[GET] Error page request for message: {}", message);
-        Resource resource = new ClassPathResource("/templates" + propertiesReader.getErrorPath() + ".html");
-    
         return Mono.fromCallable(() -> {
-            try (InputStream inputStream = resource.getInputStream();
+            try (InputStream inputStream = getResource(propertiesReader.getErrorPath()).getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
                 StringBuilder content = new StringBuilder();
                 String line;
@@ -335,7 +333,7 @@ public class SuccessHandler {
                 String pageContent = content.toString().replace("${message}", message);
                 return pageContent;
             } catch (IOException e) {
-                LOGGER.error("Error reading error page: ", e);
+                LOGGER.error("Error reading error page: {}", e);
                 return "Error reading error page";
             }
         }).flatMap(content -> ServerResponse
@@ -343,8 +341,23 @@ public class SuccessHandler {
                 .contentType(MediaType.TEXT_HTML)
                 .bodyValue(content))
         .onErrorResume(e -> {
-            LOGGER.error("Error reading error page: ", e);
+            LOGGER.error("Error reading error page: {}", e);
             return errorPage("Error reading error page");
         });
+    }
+
+    /**
+     * 读取资源文件
+     * 
+     * @param path 路径信息
+     * @return resource Resource类
+     */
+    private Resource getResource(String path) {
+        LOGGER.debug("Get resource by path : {}", path);
+        ResourceLoader loader = new DefaultResourceLoader();
+        String newPath = String.format("classpath:templates/%s.html", path);
+        Resource resource = loader.getResource(newPath);
+        LOGGER.debug("Get resource success : {}", path);
+        return resource;
     }
 }

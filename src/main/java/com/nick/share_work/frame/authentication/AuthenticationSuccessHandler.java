@@ -44,7 +44,7 @@ public class AuthenticationSuccessHandler implements ServerAuthenticationSuccess
         ServerWebExchange exchange = webFilterExchange.getExchange();
         // 如果认证信息不为空，表示用户成功登录
         if (authentication != null) {
-            LOGGER.debug("Authentication success: {}", authentication.getName());
+            LOGGER.debug("Authentication success : {}" , authentication.getName());
             
             // 生成JWT令牌，用于后续的身份验证
             String token = jwtTokenProvider.generateToken(authentication);

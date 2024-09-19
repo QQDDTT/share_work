@@ -121,7 +121,7 @@ public class WebSocketMessageBody {
         try {
             return new ObjectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
-            LOGGER.error("Error while converting WebSocketMessageBody to JSON: {}", e.getMessage(), e);
+            LOGGER.error("Error while converting WebSocketMessageBody to JSON: {}", e.getMessage());
             return null;
         }
     }
@@ -138,9 +138,9 @@ public class WebSocketMessageBody {
             LOGGER.debug("Converting JSON to WebSocketMessageBody: {}", messageBody);
             return messageBody;
         } catch (JsonMappingException e) {
-            LOGGER.error("Error while mapping JSON to WebSocketMessageBody: {}", e.getMessage(), e);
+            LOGGER.error("Error while mapping JSON to WebSocketMessageBody: {}", e.getMessage());
         } catch (JsonProcessingException e) {
-            LOGGER.error("Error while processing JSON to WebSocketMessageBody: {}", e.getMessage(), e);
+            LOGGER.error("Error while processing JSON to WebSocketMessageBody: {}", e.getMessage());
         }
         return null;
     }

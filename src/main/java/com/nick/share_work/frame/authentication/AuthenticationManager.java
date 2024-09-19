@@ -68,7 +68,7 @@ public class AuthenticationManager implements ReactiveAuthenticationManager {
                         return Mono.error(new AuthenticationException("Invalid password") {});
                     }
                })
-               .doOnError(error -> LOGGER.error("Error authenticating user: {}", username, error)) // 记录认证失败的错误日志
+               .doOnError(error -> LOGGER.error("Error authenticating user: {} error : {}", username, error.getMessage())) // 记录认证失败的错误日志
                .onErrorResume(error -> Mono.error(new AuthenticationException("Authentication failed") {}));
     }
 }

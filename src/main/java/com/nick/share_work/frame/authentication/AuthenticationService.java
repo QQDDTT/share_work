@@ -68,10 +68,10 @@ public class AuthenticationService {
                 // 将读取到的用户数据放入用户映射表
                 userMap.putAll(loadedUsers);
             } else {
-                LOGGER.error("File not found: " + propertiesReader.getUserDataFilePath());
+                LOGGER.error("File not found: {}", propertiesReader.getUserDataFilePath());
             }
         } catch (IOException e) {
-            LOGGER.error("Failed to load users from file: " + propertiesReader.getUserDataFilePath(), e);
+            LOGGER.error("Failed to load users from file: {} error : {}", propertiesReader.getUserDataFilePath(), e.getMessage());
             e.printStackTrace();
         }
     }
@@ -85,14 +85,14 @@ public class AuthenticationService {
             if (!file.exists()) {
                 file.getParentFile().mkdirs(); // 创建目录
                 file.createNewFile(); // 创建文件
-                LOGGER.info("Created file: " + propertiesReader.getUserDataFilePath());
+                LOGGER.info("Created file : {}", propertiesReader.getUserDataFilePath());
             }
             // 将内存中的用户数据写入到文件
             Path path = Paths.get(propertiesReader.getUserDataFilePath());
             objectMapper.writeValue(path.toFile(), userMap);
-            LOGGER.info("Users saved to file: " + propertiesReader.getUserDataFilePath());
+            LOGGER.info("Users saved to file : {}", propertiesReader.getUserDataFilePath());
         } catch (IOException e) {
-            LOGGER.error("Failed to save users to file: " + propertiesReader.getUserDataFilePath(), e);
+            LOGGER.error("Failed to save users to file : {} error : {}", propertiesReader.getUserDataFilePath(), e);
             e.printStackTrace();
         }
     }
@@ -103,14 +103,14 @@ public class AuthenticationService {
      * @return 用户对象
      */
     public Mono<User> loadUserByUsername(String username) {
-        LOGGER.info("Loading user with username: " + username);
+        LOGGER.info("Loading user with username : {}", username);
         for (Entry<String, User> entry : userMap.entrySet()) {
             if (entry.getValue().getUsername().equals(username)) { // 如果用户名匹配
-                LOGGER.info("User loaded: " + username);
+                LOGGER.info("User loaded : {}", username);
                 return Mono.just(entry.getValue()); // 返回用户对象
             }
         }
-        LOGGER.error("User not found: " + username);
+        LOGGER.error("User not found : {}", username);
         return Mono.just(new User()); // 如果用户名不存在，返回空用户对象
     }
 
@@ -125,7 +125,7 @@ public class AuthenticationService {
         LOGGER.info("Registering user with username: {}, password: {}, email: {}", username, password, email);
         for (Entry<String, User> entry : userMap.entrySet()) {
             if (entry.getValue().getUsername().equals(username)) { // 如果用户名已存在
-                LOGGER.error("Username already exists: " + username);
+                LOGGER.error("Username already exists : {}" + username);
                 return Mono.empty(); // 注册失败
             }
         }
@@ -137,10 +137,10 @@ public class AuthenticationService {
         try {
             saveUsersToFile();
         } catch (IOException e) {
-            LOGGER.error("Failed to save user to file: " + propertiesReader.getUserDataFilePath(), e);
+            LOGGER.error("Failed to save user to file : {}", propertiesReader.getUserDataFilePath(), e);
             return Mono.empty(); // 注册失败
         } // 将用户数据保存到文件
-        LOGGER.info("User registered successfully: username = {}" , username);
+        LOGGER.info("User registered successfully username : {}" , username);
         return Mono.just(user); // 返回注册成功的用户对象
     }
 
@@ -151,22 +151,22 @@ public class AuthenticationService {
      * @return 更新后的用户对象
      */
     public Mono<User> updateUser(String id, User user) {
-        LOGGER.info("Updating user with id: {}", id);
+        LOGGER.info("Updating user with id : {}", id);
         User oldUser = userMap.get(id);
         if (oldUser != null) { // 如果用户存在
-            LOGGER.debug("User before update: user ={}", oldUser); // 打印用户信息
+            LOGGER.debug("User before update user : {}", oldUser); // 打印用户信息
             userMap.put(id, user); // 更新用户数据
             try {
                 saveUsersToFile(); // 将更新后的数据保存到文件
             } catch (IOException e) {
-                LOGGER.error("Failed to save user to file: " + propertiesReader.getUserDataFilePath(), e);
+                LOGGER.error("Failed to save user to file : {}" , propertiesReader.getUserDataFilePath(), e);
                 return Mono.empty(); // 更新失败
             } 
             LOGGER.info("User updated successfully");
-            LOGGER.debug("User after update: user ={}", user); // 打印用户信息
+            LOGGER.debug("User after update user : {}" , user); // 打印用户信息
             return Mono.just(user); // 返回更新后的用户对象
         }
-        LOGGER.info("User update failed: " + id);
+        LOGGER.info("User update failed : {}" , id);
         return Mono.empty(); // 如果用户不存在，返回 null
     }
 
@@ -177,17 +177,17 @@ public class AuthenticationService {
      * @return 删除成功返回 true，否则返回 false
      */
     public Mono<Boolean> deleteUser(String id, User user) {
-        LOGGER.info("Deleting user with id: {}" , id);
+        LOGGER.info("Deleting user with id : {}" , id);
         User oldUser = userMap.get(id);
         if (oldUser != null && oldUser.equals(user)) { // 如果用户存在且密码正确
             userMap.remove(id); // 删除用户数据
             try {
                 saveUsersToFile(); // 将删除后的数据保存到文件
             } catch (IOException e) {
-                LOGGER.error("Failed to save user to file: {}" , propertiesReader.getUserDataFilePath(), e);
+                LOGGER.error("Failed to save user to file : {} error : {}" , propertiesReader.getUserDataFilePath(), e);
                 return Mono.just(false); // 删除失败
             }
-            LOGGER.info("User deleted: {}" , id);
+            LOGGER.info("User deleted by id : {}" , id);
             return Mono.just(true); // 返回 true 表示删除成功
         }
         LOGGER.info("User deletion failed id : {}" , id);
