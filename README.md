@@ -6,16 +6,12 @@ SHARE_WORK
 
 ## 项目结构
 
-简要说明项目的目录结构。例如：
-
 - `src/main/java/` - 包含 Java 源代码
 - `src/main/resources/` - 包含配置文件和静态资源
 - `src/test/java/` - 包含测试代码
 - `pom.xml` - Maven 构建配置文件
 
 ## 环境要求
-
-列出项目的运行和构建所需的环境要求。例如：
 
 - JDK 版本：17
 - Maven 版本：3.6.3
@@ -24,8 +20,6 @@ SHARE_WORK
 - 支持 Docker
 
 ## 安装和构建
-
-提供项目的安装和构建步骤。例如：
 
 1. **克隆项目**
 
