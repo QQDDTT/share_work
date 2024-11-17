@@ -355,7 +355,7 @@ public class SuccessHandler {
     private Resource getResource(String path) {
         LOGGER.debug("Get resource by path : {}", path);
         ResourceLoader loader = new DefaultResourceLoader();
-        String newPath = String.format("classpath:templates/%s.html", path);
+        String newPath = String.format("classpath:templates%s.html", path);
         Resource resource = loader.getResource(newPath);
         LOGGER.debug("Get resource success : {}", path);
         return resource;

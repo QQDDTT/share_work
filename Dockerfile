@@ -1,5 +1,5 @@
 # 使用官方的 openjdk 基础镜像
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17
 
 
 # 设置工作目录
