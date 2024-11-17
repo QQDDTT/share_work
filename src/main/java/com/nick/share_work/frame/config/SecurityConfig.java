@@ -71,17 +71,6 @@ public class SecurityConfig {
                 .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION) // 添加 JWT 认证过滤器
                 .build();
     }
-    
-    /**
-     * 配置自定义认证失败处理器。
-     * 
-     * @return CustomAuthenticationAccessDeniedHandler 对象。
-     */
-    @Bean
-    public AuthenticationAccessDeniedHandler accessDeniedHandler() {
-        LOGGER.debug("accessDeniedHandler started");
-        return new AuthenticationAccessDeniedHandler();
-    }
 
     /**
      * 配置路由功能。
